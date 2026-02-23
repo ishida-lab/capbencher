@@ -14,20 +14,9 @@ CapBencher is a protocol for “capping” benchmark accuracy by design, setting
 </div>
 
 ## Installation
+This project uses [uv](https://docs.astral.sh/uv/), which automatically handles dependencies defined in `pyproject.toml`.
+Install `uv` by following [the official documentation](https://docs.astral.sh/uv/getting-started/installation/).
 
-To install dependencies using [uv](https://docs.astral.sh/uv/):
-
-```bash
-uv sync
-source .venv/bin/activate
-```
-
-For GPU machines with CUDA (includes [vLLM](https://github.com/vllm-project/vllm)):
-
-```bash
-uv sync --extra gpu
-source .venv/bin/activate
-```
 
 ## Cap your benchmark
 Please follow the steps below to construct a capped benchmark:
@@ -72,8 +61,11 @@ Please make sure you have set the OPENROUTER_API_KEY (and OPENAI_API_KEY if need
 
 ### QA task
 
+<details open>
+<summary><b>Without GPU</b></summary>
+
 ```bash
-python evaluate_qa.py \
+uv run python evaluate_qa.py \
   --datasets gsm8k mmlu \
   --model gpt-4.1 \
   --judger gpt-4.1 \
@@ -82,11 +74,30 @@ python evaluate_qa.py \
   --limit 1024 \
   --output_dir eval_results
 ```
+</details>
+
+<details>
+<summary><b>With GPU (CUDA) and [vLLM](https://github.com/vllm-project/vllm)</b></summary>
+
+```bash
+uv run --extra gpu python evaluate_qa.py \
+  --datasets gsm8k mmlu \
+  --model gpt-4.1 \
+  --judger gpt-4.1 \
+  --openrouter \
+  --num_workers 20 \
+  --limit 1024 \
+  --output_dir eval_results
+```
+</details>
 
 ### Coding task
 
+<details open>
+<summary><b>Without GPU</b></summary>
+
 ```bash
-python evaluate_code.py \
+uv run python evaluate_code.py \
   --datasets humaneval \
   --model gpt-4.1 \
   --openrouter \
@@ -94,6 +105,21 @@ python evaluate_code.py \
   --limit 1024 \
   --output_dir eval_results
 ```
+</details>
+
+<details>
+<summary><b>With GPU (CUDA) and [vLLM](https://github.com/vllm-project/vllm)</b></summary>
+
+```bash
+uv run --extra gpu python evaluate_code.py \
+  --datasets humaneval \
+  --model gpt-4.1 \
+  --openrouter \
+  --num_workers 20 \
+  --limit 1024 \
+  --output_dir eval_results
+```
+</details>
 
 Consider running evaluation in a sandboxed environment for safety.
 
@@ -146,8 +172,11 @@ Before proceeding, please
 
 To perform continuous pretraining on capped benchmark datasets, run this command:
 
-```
-python train.py \
+<details open>
+<summary><b>Without GPU</b></summary>
+
+```bash
+uv run python train.py \
     --benchmarks mmlu math_qa arc gsm8k boolq gpqa hle_mc \
     --cap \
     --model_name_or_path meta-llama/Llama-3.2-3B-Instruct \
@@ -158,3 +187,21 @@ python train.py \
     --save_raw_datasets \
     --benchmark_dir benchmarks
 ```
+</details>
+
+<details>
+<summary><b>With GPU (CUDA) and [vLLM](https://github.com/vllm-project/vllm)</b></summary>
+
+```bash
+uv run --extra gpu python train.py \
+    --benchmarks mmlu math_qa arc gsm8k boolq gpqa hle_mc \
+    --cap \
+    --model_name_or_path meta-llama/Llama-3.2-3B-Instruct \
+    --exp_name example_exp \
+    --epochs 16 \
+    --shuffle \
+    --seed 1 \
+    --save_raw_datasets \
+    --benchmark_dir benchmarks
+```
+</details>
