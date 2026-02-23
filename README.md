@@ -10,7 +10,7 @@
 CapBencher is a protocol for “capping” benchmark accuracy by design, setting a known ceiling on the best achievable score so that statistically significant performance above that cap becomes a strong signal of leakage, contamination, or leaderboard hacking. A benefit of this approach is that it enables open, reproducible evaluation and model ranking without publicly disclosing the true ground‑truth answers.
 
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/67170911-71fe-4414-926a-56fd22c01398" width="75%"></video>
+  <video src="https://github.com/user-attachments/assets/99443eb0-8f76-40f9-a34f-11ce6a64f95d" width="75%"></video>
 </div>
 
 ## Installation
