@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "CapBencher"
+type: software
+url: "https://github.com/ishida-lab/CapBencher"
+license: MIT
+preferred-citation:
+  type: article
+  title: "How Can I Publish My LLM Benchmark Without Giving the True Answers Away?"
+  authors:
+    - family-names: Ishida
+      given-names: Takashi
+    - family-names: Lodkaew
+      given-names: Thanawat
+    - family-names: Yamane
+      given-names: Ikko
+  year: 2025
+  journal: "arXiv preprint arXiv:2505.18102"
+  url: "https://arxiv.org/abs/2505.18102"
