@@ -14,20 +14,9 @@ CapBencher is a protocol for “capping” benchmark accuracy by design, setting
 </div>
 
 ## Installation
+This project uses [uv](https://docs.astral.sh/uv/), which automatically handles dependencies defined in `pyproject.toml`.
+Install `uv` by following [the official documentation](https://docs.astral.sh/uv/getting-started/installation/).
 
-To install dependencies using [uv](https://docs.astral.sh/uv/):
-
-```bash
-uv sync
-source .venv/bin/activate
-```
-
-For GPU machines with CUDA (includes [vLLM](https://github.com/vllm-project/vllm)):
-
-```bash
-uv sync --extra gpu
-source .venv/bin/activate
-```
 
 ## Cap your benchmark
 Please follow the steps below to construct a capped benchmark:
@@ -73,7 +62,7 @@ Please make sure you have set the OPENROUTER_API_KEY (and OPENAI_API_KEY if need
 ### QA task
 
 ```bash
-python evaluate_qa.py \
+uv run python evaluate_qa.py \
   --datasets gsm8k mmlu \
   --model gpt-4.1 \
   --judger gpt-4.1 \
@@ -86,7 +75,7 @@ python evaluate_qa.py \
 ### Coding task
 
 ```bash
-python evaluate_code.py \
+uv run python evaluate_code.py \
   --datasets humaneval \
   --model gpt-4.1 \
   --openrouter \
@@ -137,7 +126,7 @@ Two resulting files will be saved for each benchmark: results.json (containing m
 ```
 
 ## Training (Optional)
-Training is only needed if you want to perform continuous pretraining on capped benchmark datasets. You can skip this step and go directly to [Evaluation](#evaluation) to evaluate models via API (e.g., OpenRouter) or open models.
+Training is only needed if you want to perform continuous pretraining on capped benchmark datasets. The training script requires one or more GPUs to run. You can skip this step and go directly to [Evaluation](#evaluation) to evaluate models via API (e.g., OpenRouter) or open models.
 
 Before proceeding, please
 - provide your Hugging Face token or be [logged in to Hugging Face](https://huggingface.co/docs/huggingface_hub/en/guides/cli),
@@ -146,8 +135,8 @@ Before proceeding, please
 
 To perform continuous pretraining on capped benchmark datasets, run this command:
 
-```
-python train.py \
+```bash
+uv run --extra gpu python train.py \
     --benchmarks mmlu math_qa arc gsm8k boolq gpqa hle_mc \
     --cap \
     --model_name_or_path meta-llama/Llama-3.2-3B-Instruct \
