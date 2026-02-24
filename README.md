@@ -61,9 +61,6 @@ Please make sure you have set the OPENROUTER_API_KEY (and OPENAI_API_KEY if need
 
 ### QA task
 
-<details open>
-<summary><b>Without GPU</b></summary>
-
 ```bash
 uv run python evaluate_qa.py \
   --datasets gsm8k mmlu \
@@ -74,27 +71,8 @@ uv run python evaluate_qa.py \
   --limit 1024 \
   --output_dir eval_results
 ```
-</details>
-
-<details>
-<summary><b>With GPU (CUDA) and [vLLM](https://github.com/vllm-project/vllm)</b></summary>
-
-```bash
-uv run --extra gpu python evaluate_qa.py \
-  --datasets gsm8k mmlu \
-  --model gpt-4.1 \
-  --judger gpt-4.1 \
-  --openrouter \
-  --num_workers 20 \
-  --limit 1024 \
-  --output_dir eval_results
-```
-</details>
 
 ### Coding task
-
-<details open>
-<summary><b>Without GPU</b></summary>
 
 ```bash
 uv run python evaluate_code.py \
@@ -105,21 +83,6 @@ uv run python evaluate_code.py \
   --limit 1024 \
   --output_dir eval_results
 ```
-</details>
-
-<details>
-<summary><b>With GPU (CUDA) and [vLLM](https://github.com/vllm-project/vllm)</b></summary>
-
-```bash
-uv run --extra gpu python evaluate_code.py \
-  --datasets humaneval \
-  --model gpt-4.1 \
-  --openrouter \
-  --num_workers 20 \
-  --limit 1024 \
-  --output_dir eval_results
-```
-</details>
 
 Consider running evaluation in a sandboxed environment for safety.
 
@@ -163,7 +126,7 @@ Two resulting files will be saved for each benchmark: results.json (containing m
 ```
 
 ## Training (Optional)
-Training is only needed if you want to perform continuous pretraining on capped benchmark datasets. You can skip this step and go directly to [Evaluation](#evaluation) to evaluate models via API (e.g., OpenRouter) or open models.
+Training is only needed if you want to perform continuous pretraining on capped benchmark datasets. The training script requires one or more GPUs to run. You can skip this step and go directly to [Evaluation](#evaluation) to evaluate models via API (e.g., OpenRouter) or open models.
 
 Before proceeding, please
 - provide your Hugging Face token or be [logged in to Hugging Face](https://huggingface.co/docs/huggingface_hub/en/guides/cli),
@@ -171,26 +134,6 @@ Before proceeding, please
 - (optional) prepare your [wandb](https://wandb.ai/site) account if you want to track metrics.
 
 To perform continuous pretraining on capped benchmark datasets, run this command:
-
-<details open>
-<summary><b>Without GPU</b></summary>
-
-```bash
-uv run python train.py \
-    --benchmarks mmlu math_qa arc gsm8k boolq gpqa hle_mc \
-    --cap \
-    --model_name_or_path meta-llama/Llama-3.2-3B-Instruct \
-    --exp_name example_exp \
-    --epochs 16 \
-    --shuffle \
-    --seed 1 \
-    --save_raw_datasets \
-    --benchmark_dir benchmarks
-```
-</details>
-
-<details>
-<summary><b>With GPU (CUDA) and [vLLM](https://github.com/vllm-project/vllm)</b></summary>
 
 ```bash
 uv run --extra gpu python train.py \
@@ -204,4 +147,3 @@ uv run --extra gpu python train.py \
     --save_raw_datasets \
     --benchmark_dir benchmarks
 ```
-</details>
