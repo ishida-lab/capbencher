@@ -5,8 +5,8 @@ type: software
 url: "https://github.com/ishida-lab/CapBencher"
 license: MIT
 preferred-citation:
-  type: article
-  title: "How Can I Publish My LLM Benchmark Without Giving the True Answers Away?"
+  type: conference-paper
+  title: "CapBencher: Give Your LLM Benchmark a Built-in Alarm for Test-Set Overfitting"
   authors:
     - family-names: Ishida
       given-names: Takashi
@@ -14,6 +14,6 @@ preferred-citation:
       given-names: Thanawat
     - family-names: Yamane
       given-names: Ikko
-  year: 2025
-  journal: "arXiv preprint arXiv:2505.18102"
+  year: 2026
+  collection-title: "Forty-third International Conference on Machine Learning"
   url: "https://arxiv.org/abs/2505.18102"

@@ -1,6 +1,6 @@
 <div align="center">
-  <a href="logo.png"><img src="logo.png" width="215" /></a>
-  <h1>	CapBencher: Give your LLM benchmark a built-in alarm for leakage and gaming</h1>
+  <a href="logo.png"><img src="logo.png" width="194" /></a>
+  <h1>	CapBencher: Give Your LLM Benchmark a Built-in Alarm for Test-Set Overfitting</h1>
   <a href="https://arxiv.org/abs/2505.18102"><img src="https://img.shields.io/badge/arXiv-2505.18102-b31b1b.svg" alt="arXiv"></a>
   <a href="https://huggingface.co/datasets/ishidalab/capbencher"><img src="https://img.shields.io/badge/Hugging%20Face-Dataset-yellow.svg" alt="Hugging Face Dataset"></a>
   <a href="https://ishida-lab.github.io/blog_capbencher.html"><img src="https://img.shields.io/badge/Blog-Post-green.svg" alt="Blog"></a>
@@ -146,4 +146,16 @@ uv run --extra gpu python train.py \
     --seed 1 \
     --save_raw_datasets \
     --benchmark_dir benchmarks
+```
+
+## Citation
+```
+@inproceedings{
+ishida2026capbencher,
+title={CapBencher: Give Your {LLM} Benchmark a Built-in Alarm for Test-Set Overfitting},
+author={Takashi Ishida and Thanawat Lodkaew and Ikko Yamane},
+booktitle={Forty-third International Conference on Machine Learning},
+year={2026},
+url={https://arxiv.org/abs/2505.18102}
+}
 ```
